@@ -1,13 +1,14 @@
 import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { Note } from '../interfaces/Note';
 
-import { NOTE_POSITIONS, NOTE_CLASSES } from '../NOTE_POSITIONS';
+import { NOTES } from '../NOTE_POSITIONS';
 
 import { property } from 'lit/decorators.js';
 
 @customElement('app-fretboard')
 export class AppFretboard extends LitElement {
-  @property({ type: String }) note = NOTE_CLASSES[2];
+  @property({ type: Object }) note: Note;
 
   static styles = [
     css`
@@ -129,16 +130,19 @@ export class AppFretboard extends LitElement {
       border-radius: 100%;
       background-color: hotpink;
       position: absolute;
-      top: 0;
-      left: 0;
     }
 
-  `, 
-  NOTE_POSITIONS
+  `
 ];
 
   render() {
     return html`
+      <style>
+        .note-indicator {
+          left: ${this.note.position[0]}px;
+          top: ${this.note.position[1]}px;
+        }
+      </style>
       <div class="fretboard">
         <div class="note-indicator ${this.note}"></div>
       
@@ -180,7 +184,13 @@ export class AppFretboard extends LitElement {
     `;
   }
 
+  constructor() {
+    super();
+    this.note = NOTES[Math.floor(Math.random() * NOTES.length)];
+    console.log(this.note.position[0]);
+  }
+
   firstUpdated() {
-    this.note = NOTE_CLASSES[Math.floor(Math.random() * NOTE_CLASSES.length)];
+    
   }
 }
