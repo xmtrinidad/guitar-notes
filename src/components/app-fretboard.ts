@@ -21,6 +21,7 @@ export class AppFretboard extends LitElement {
       justify-content: space-between;
       padding: 10px 0;
       position: relative;
+      margin: auto;
     }
 
     .string {
@@ -59,6 +60,11 @@ export class AppFretboard extends LitElement {
       display: flex;
       flex-direction: column;
       justify-content: center;
+    }
+
+    .fret1, .fret13 {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .fret1, .fret2, .fret3, .fret4 {
@@ -110,11 +116,23 @@ export class AppFretboard extends LitElement {
       top: 104px;
     }
 
+    .note-indicator {
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      background-color: hotpink;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
   `;
 
   render() {
     return html`
       <div class="fretboard">
+        <div class="note-indicator"></div>
+
         <div class="string string1"></div>
         <div class="string string2"></div>
         <div class="string string3"></div>
